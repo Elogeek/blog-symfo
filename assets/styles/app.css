@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'cursive', sans-serif;
+    font-size: 62.5%;
+}
+
+body {
+    width: 100%;
+    background-color: #ececec;
+}
+
+/* Design home page of the site */
+.menu-header  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #d43c4c;
+}
+
+#logo {
+    width: 16rem;
+}
+
+.menu-header div {
+    justify-content: space-between;
+    display: flex;
+    font-size: 31px;
+    padding: 1rem;
+    align-items: center;
+}
+.menu-header li {
+    list-style-type: none;
+}
+
+.menu-header a {
+    color: white;
+    text-decoration-line: none;
+    text-align: center;
+}
+
+.menu-header li:last-child {
+    margin-right: 9rem;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
