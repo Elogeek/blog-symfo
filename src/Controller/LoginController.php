@@ -15,8 +15,7 @@ class LoginController extends AbstractController
      * @return Response
      */
     #[Route('/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
+    public function login(AuthenticationUtils $authenticationUtils): Response {
         if($this->getUser()) {
             return  $this->redirectToRoute('home');
         }
@@ -24,7 +23,7 @@ class LoginController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // Récup du dernier user connecté
         $emailUser = $authenticationUtils->getLastAuthenticationError();
-        return $this->render('login/index.html.twig', [
+        return $this->render('security/login.html.twig', [
             'email_user' => $emailUser,
             'error' => $error,
         ]);

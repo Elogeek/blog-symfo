@@ -18,18 +18,31 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+/**
+ *
+ */
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier)
-    {
+    /**
+     * @param EmailVerifier $emailVerifier
+     */
+    public function __construct(EmailVerifier $emailVerifier) {
         $this->emailVerifier = $emailVerifier;
     }
 
+    /**
+     * Add a user in the BDD
+     * @param Request $request
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param UserAuthenticatorInterface $userAuthenticator
+     * @param AppSecurityAuthenticator $authenticator
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppSecurityAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
-    {
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppSecurityAuthenticator $authenticator, EntityManagerInterface $entityManager): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -68,9 +81,14 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    /**
+     * Check email user
+     * @param Request $request
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
-    {
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // validate email confirmation link, sets User::isVerified=true and persists
@@ -82,7 +100,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
+        // If success => display homePage of the site
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('home');

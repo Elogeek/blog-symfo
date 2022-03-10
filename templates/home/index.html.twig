@@ -1,1 +1,24 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1>Accueil, bienvenue {{ app.user.email }} !</h1>
+
+    {% for category in categories %}
+        <div>
+            <a href="{{ path('app_category', { 'id': category.id}) }}">{{ category.name }}</a>
+        </div>
+    {% endfor %}
+    {% if articles|length > 0  %}
+        {% for article in articles %}
+            <div>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.category.name }}</p>
+                <p>{{ article.author.email }}</p>
+                <p>{{ article.datetime|date("m/d/Y") }}</p>
+                <p><a href="{{ path('app_article', { 'id': article.id}) }}">Lire l'article</a></p>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

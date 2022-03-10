@@ -129,4 +129,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return string email user
+     */
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
+
 }
