@@ -13,10 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/article', name: 'article_')]
 class ArticleController extends AbstractController
 {
-    #[Route('/', name: 'list')]
+    #[Route('/article', name: 'article_list')]
     public function list(): Response {
         $articles = [
             new Article(),
@@ -32,7 +31,7 @@ class ArticleController extends AbstractController
 
     }
 
-    #[Route('/{id<\d+>}', name: 'single')]
+    #[Route('article/{id<\d+>}', name: 'article_single')]
     public function index(Article $article, Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
@@ -60,7 +59,7 @@ class ArticleController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-   #[Route('/add', name: 'add')]
+   #[Route('article/add', name: 'article_add')]
     public function add(Category $category, Request $request, EntityManagerInterface $entityManager): Response {
         $article = new Article();
         $article->setCategory($category)->setDatePostArticle(new \DateTime())->setAuthor($this->getUser());

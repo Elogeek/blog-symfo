@@ -19,7 +19,12 @@
                         <li><a href="{{ path('home') }}"><img id="logo" src="{{ asset('build/image/copy/logo.png') }}" alt="Super logo"></a></li>
                     </div>
                     <div>
-                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        {# If userd already connect #}
+                        {% if app.user %}
+                            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        {% endif %}
                     </div>
                     <div>
                         <li><a href="{{ path('article_list') }}">Tous les articles</a></li>

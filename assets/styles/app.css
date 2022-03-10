@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Indie+Flower&display=swap');
 
 * {
     margin: 0;
@@ -7,7 +7,7 @@
 }
 
 html {
-    font-family: 'cursive', sans-serif;
+    font-family: 'Fredoka', sans-serif,'Indie Flower', cursive;
     font-size: 62.5%;
 }
 
@@ -32,7 +32,7 @@ body {
 .menu-header div {
     justify-content: space-between;
     display: flex;
-    font-size: 31px;
+    font-size: 30px;
     padding: 1rem;
     align-items: center;
 }
@@ -50,4 +50,87 @@ body {
     margin-right: 9rem;
 }
 
+/** Design .welcome home **/
+.welcome {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+    font-family: 'Fredoka', sans-serif,'Indie Flower', cursive;
+}
 
+/** Design forms (connect, registration) **/
+.form_connect form , .form_register form {
+    background-color: #d43c4c;
+    height: 28rem;
+    padding: 1rem;
+    width: 38rem;
+}
+
+.form_register form {
+    height: 31rem !important;
+    text-align: center;
+    width: 27rem;
+}
+
+.form_connect, .form_register {
+    display: flex;
+    justify-content: center;
+    margin-top: 20rem;
+    padding: 2rem;
+}
+
+.form_connect h1, .form_register h1 {
+    margin-bottom: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.form_connect label, .form_register label {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 1rem;
+}
+
+.form_connect div {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2rem;
+}
+
+.form_connect .checkbox, .form_register .checkbox {
+    margin-top: 1rem!important;
+}
+
+.form_connect button, .form_register button {
+    margin-top: 1rem;
+    color: white;
+    background: #d43c4c;
+    border: 3px solid white;
+    width: 7rem;
+    padding: 0.5rem;
+}
+
+.form_connect p, .form_connect a {
+    margin-top: 2rem;
+    color: white;
+    font-weight: bold;
+    text-decoration-line: none;
+    font-size: 15px;
+    text-align: initial;
+}
+
+.form_connect a:hover {
+    text-decoration-line: line-through;
+}
+
+.form_register div {
+    margin-top: 1.3rem;
+}
+
+#registration_form_email_help {
+    color: white;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 14px;
+}

@@ -8,12 +8,14 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    {% if app.user %}
-        <h1>Accueil, bienvenue {{ app.user.email }} !</h1>
-    {% else %}
-        <h1>Accueil</h1>
-    {% endif %}
-
+    <div class="welcome">
+        {# If userd already connect #}
+        {% if app.user %}
+            <h1>Accueil, bienvenue {{ app.user.email }} !</h1>
+        {% else %}
+            <h1>Accueil</h1>
+        {% endif %}
+    </div>
 
     {% for category in categories %}
         <div>
