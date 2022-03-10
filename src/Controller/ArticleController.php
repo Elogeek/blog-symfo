@@ -83,6 +83,7 @@ class ArticleController extends AbstractController
             'default_author' => $entityManager->getRepository(User::class)->find(3),
             // Choice author
             'users' => $entityManager->getRepository(User::class)->findAll(),
+            'categories'=>$entityManager->getRepository(Category::class)->findAll(),
         ]);
 
         $form->handleRequest($request);
