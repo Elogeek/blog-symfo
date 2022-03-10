@@ -27,28 +27,37 @@ class ArticleController extends AbstractController
 
         return $this->render('article/list.html.twig', [
             'articles' => $articles,
+            'app.user' => []
         ]);
 
     }
 
-    #[Route('article/{id<\d+>}', name: 'article_single')]
-    public function index(Article $article, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('article/{id<\d+>}', name: 'article_index')]
+    public function index(Article $article, Request $request, EntityManagerInterface $entityManager): Response {
+        // If user already connect
+        if($this->getUser()) {
+            $user = $this->getUser()->getUserIdentifier();
+        }
+        else {
+            $user = "";
+        }
+
         $comment = new Comment();
         $comment->addArticle($article)->setAuthor($this->getUser());
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
-
+        // Completed form and data correct
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirect($_SERVER['HTTP_REFERER']);
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('article/index.html.twig', [
             'article' => $article,
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "user" => $user,
 
         ]);
     }
@@ -71,7 +80,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_category');
+            return $this->redirectToRoute('app_category',["id" => $category->getId()]);
         }
 
         return $this->render('article/add.html.twig', [

@@ -13,11 +13,11 @@
             {% for article in articles %}
                 <div>
                     <h3>{{ article.title }}</h3>
-                    <p>{{ article.author.email }}</p>
+                    <p>{{ app.user.email }}</p>
                     <p>{{ article.datePostArticle|date("m/d/Y") }}</p>
                     <p>{{ article.picture }}</p>
                     <p>{{ article.content }}</p>
-                    <p><a href="{{ path('article', { 'id': article.id}) }}">Lire l'article</a></p>
+                    <p><a href="{{ path('article_index', { 'id': article.id}) }}">Lire l'article complet</a></p>
                 </div>
             {% endfor %}
         {% endif %}

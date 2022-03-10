@@ -47,7 +47,7 @@ class ArticleType extends AbstractType
             // Add author article
             ->add('author')
             // Add comments article
-            ->add('comments')
+            //->add('comments')
             // Refresh article
             ->add('reset', ResetType::class, [
                 'label' => "Recommencer"
