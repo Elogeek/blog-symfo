@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
 {
-    #[Route('/category/{id}', name: 'app_category')]
+    #[Route('/category/{id<\d+>}', name: 'app_category')]
     public function index(Category $category, ArticleRepository $articleRepository): Response {
         $articles = $articleRepository->findByCat($category->getId());
 

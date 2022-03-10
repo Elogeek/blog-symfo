@@ -51,10 +51,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            // Btn register user
-            ->add('submit', SubmitType::class, [
-                'label' => "M'inscrire"
-            ])
+
         ;
     }
 

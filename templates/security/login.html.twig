@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{# Import menu #}
+ {% block menu %}
+    {{ parent() }}
+ {% endblock %}
+
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
@@ -17,7 +22,7 @@
 
         <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
         <label for="inputEmail">Votre email: </label>
-        <input type="email" value="{{ email_user }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
         <label for="inputPassword">Votre password : </label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

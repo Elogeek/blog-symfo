@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{# Import menu #}
+ {% block menu %}
+     {{ parent() }}
+ {% endblock %}
+
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Accueil, bienvenue {{ app.user.email }} !</h1>
+    {% if app.user %}
+        <h1>Accueil, bienvenue {{ app.user.email }} !</h1>
+    {% else %}
+        <h1>Accueil</h1>
+    {% endif %}
+
 
     {% for category in categories %}
         <div>
-            <a href="{{ path('app_category', { 'id': category.id}) }}">{{ category.name }}</a>
+            <a href="{{ path('article_single', { 'id': category.id}) }}">{{ category.name }}</a>
         </div>
     {% endfor %}
     {% if articles|length > 0  %}
@@ -17,7 +27,7 @@
                 <p>{{ article.category.name }}</p>
                 <p>{{ article.author.email }}</p>
                 <p>{{ article.datetime|date("m/d/Y") }}</p>
-                <p><a href="{{ path('app_article', { 'id': article.id}) }}">Lire l'article</a></p>
+                <p><a href="{{ path('article_single', { 'id': article.id}) }}">Lire l'article</a></p>
             </div>
         {% endfor %}
     {% endif %}

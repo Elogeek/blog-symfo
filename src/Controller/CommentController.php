@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends AbstractController
 {
-    #[Route('/comment/{id}', name: 'app_comment')]
+    #[Route('/comment/{id<\d+>}', name: 'app_comment')]
     public function index(Comment $comment, CommentRepository $commentRepository): Response {
         $comment = $commentRepository->findByCat($comment->getId());
         return $this->render('comment/index.html.twig', [

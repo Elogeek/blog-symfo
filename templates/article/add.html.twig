@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{# Import menu #}
+ {% block menu %}
+     {{ parent() }}
+ {% endblock %}
+
+{% block title %}Ajouter un article{% endblock %}
+
+{% block body %}
+    <div class="article_form">
+        {{ form_start(form) }}
+        {# Content form of the article #}
+        <div class="form_content">
+            <div class="form-row-small">
+                <div class="form-field">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title, {'attr': {
+                        'class': 'article-title',
+                        'placeholder': "Entrez un titre clair et concis!",
+                    }}) }}
+                </div>
+            </div>
+            {# Picture form of the article #}
+
+        </div>
+    </div>
+{% endblock %}

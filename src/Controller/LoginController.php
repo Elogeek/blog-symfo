@@ -16,15 +16,16 @@ class LoginController extends AbstractController
      */
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response {
+        // If the user is already connected => redirect home page of the site
         if($this->getUser()) {
             return  $this->redirectToRoute('home');
         }
-        // Récup des errors s'il y en a
+        // Error recovery if any
         $error = $authenticationUtils->getLastAuthenticationError();
-        // Récup du dernier user connecté
-        $emailUser = $authenticationUtils->getLastAuthenticationError();
+        // Retrieval of the last connected user
+        $emailUser = $authenticationUtils->getLastUsername();
         return $this->render('security/login.html.twig', [
-            'email_user' => $emailUser,
+            'last_username' => $emailUser,
             'error' => $error,
         ]);
     }

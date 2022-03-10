@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{# Import menu #}
+ {% block menu %}
+     {{ parent() }}
+ {% endblock %}
+
 {% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}

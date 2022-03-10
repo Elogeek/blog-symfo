@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{# Import menu #}
+ {% block menu %}
+     {{ parent() }}
+ {% endblock %}
+
+{% block title %}Tous les articles !{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        {% if articles|length > 0  %}
+            {% for article in articles %}
+                <div>
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.author.email }}</p>
+                    <p>{{ article.datePostArticle|date("m/d/Y") }}</p>
+                    <p>{{ article.picture }}</p>
+                    <p>{{ article.content }}</p>
+                    <p><a href="{{ path('article', { 'id': article.id}) }}">Lire l'article</a></p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+
+
