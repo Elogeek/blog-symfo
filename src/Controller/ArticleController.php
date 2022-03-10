@@ -4,11 +4,13 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,14 +71,31 @@ class ArticleController extends AbstractController
      * @return Response
      */
    #[Route('article/add', name: 'article_add')]
-    public function add(Category $category, Request $request, EntityManagerInterface $entityManager): Response {
+    public function add(Category $category, Request $request, EntityManagerInterface $entityManager,ParameterBagInterface $parameterBag): Response {
         $article = new Article();
-        $article->setCategory($category)->setDatePostArticle(new \DateTime())->setAuthor($this->getUser());
-        $form = $this->createForm(ArticleType::class, $article);
+        $date = new \DateTime();
+        // Récupération de l'user connecté
+        $user = $this->getUser();
+
+        $article->setCategory($category)->setDatePostArticle($date)->setAuthor($user);
+        $form = $this->createForm(ArticleType::class, $article, [
+            // If not author => null
+            'default_author' => $entityManager->getRepository(User::class)->find(3),
+            // Choice author
+            'users' => $entityManager->getRepository(User::class)->findAll(),
+        ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $file = $form['picture']->getData();
+            $ext = $file->guessExtension();
+            if(!$ext) {
+                // If not ext alors use ext générique
+                $ext = ['png', 'jpeg', 'webp'];
+            }
+            // Déplacement du file and rename name unique
+            $file->move($parameterBag->get("upload.directory"), uniqid(). "." .$ext);
             $entityManager->persist($article);
             $entityManager->flush();
 

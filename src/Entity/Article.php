@@ -31,7 +31,7 @@ class Article
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
     private $author;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'date')]
     private $datePostArticle;
 
     #[ORM\ManyToMany(targetEntity: Comment::class, mappedBy: 'article')]
@@ -120,14 +120,14 @@ class Article
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTime|null
      */
     public function getDatePostArticle(): ?\DateTimeInterface {
         return $this->datePostArticle;
     }
 
     /**
-     * @param \DateTimeInterface $datetime
+     * @param \DateTime $datetime
      * @return $this
      */
     public function setDatePostArticle(\DateTimeInterface $datetime): self {

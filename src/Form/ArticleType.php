@@ -4,9 +4,13 @@ namespace App\Form;
 
 use App\Entity\Article;
 
+use App\Entity\Category;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -41,11 +45,35 @@ class ArticleType extends AbstractType
                 'label' => "Publier l'article ",
             ])
             // Add picture article
-            ->add('picture')
+            ->add('picture', FileType::class, [
+                'label' => 'Uploadez votre image',
+                'mapped' => false
+            ])
             // Add category article
-            ->add('category')
+            ->add('category',EntityType::class, [
+                'class' => Category::class,
+                'label' => "Choisissez la bonne catégorie",
+                'placeholder' => "Choisissez une catégorie",
+                // Return a name category in the form
+                'choice_label' => function(Category $category) {
+                    return $category->getName();
+                },
+                'choices' => $options['categories']
+            ])
             // Add author article
-            ->add('author')
+            ->add('author',EntityType::class, [
+                'class' => User::class,
+                'label' => "Choisissez l'auteur de l'article",
+                'placeholder' => "Choisissez un auteur",
+                // If user is null
+                'empty_data' => $options['default_author'],
+                'required' => false,
+                // Return email user in the form
+                'choice_label' => function(User $user) {
+                    return $user->getEmail();
+                },
+                'choices' => $options['users']
+            ])
             // Add comments article
             //->add('comments')
             // Refresh article
@@ -63,6 +91,9 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'categories' => [],
+            'users' => [],
+            'default_author' => null,
         ]);
     }
 }
