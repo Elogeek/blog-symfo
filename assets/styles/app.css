@@ -64,6 +64,8 @@ body {
     height: 28rem;
     padding: 1rem;
     width: 38rem;
+    border-radius: 10px;
+    border: 5px solid white;
 }
 
 .form_register form {
