@@ -21,8 +21,23 @@ class Article
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
+
     #[ORM\Column(type: 'text')]
     private $content;
+
+    #[ORM\Column(type: 'boolean')]
+    private $active;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $picture;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $updatedAt;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $createdAt;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
@@ -31,14 +46,9 @@ class Article
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
     private $author;
 
-    #[ORM\Column(type: 'date')]
-    private $datePostArticle;
-
     #[ORM\ManyToMany(targetEntity: Comment::class, mappedBy: 'article')]
     private $comments;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $picture;
 
     public function __construct() {
         $this->comments = new ArrayCollection();
@@ -69,6 +79,20 @@ class Article
     }
 
     /**
+     * @return mixed
+     */
+    public function getSlug() {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug): void {
+        $this->slug = $slug;
+    }
+
+    /**
      * @return string|null
      */
     public function getContent(): ?string {
@@ -81,6 +105,51 @@ class Article
      */
     public function setContent(string $content): self {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicture() {
+        return $this->picture;
+    }
+
+    /**
+     * @param mixed $picture
+     */
+    public function setPicture($picture): void {
+        $this->picture = $picture;
+    }
+
+
+    public function getUpdatedAt(): ?\DateTimeImmutable {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -120,23 +189,6 @@ class Article
     }
 
     /**
-     * @return \DateTime|null
-     */
-    public function getDatePostArticle(): ?\DateTimeInterface {
-        return $this->datePostArticle;
-    }
-
-    /**
-     * @param \DateTime $datetime
-     * @return $this
-     */
-    public function setDatePostArticle(\DateTimeInterface $datetime): self {
-        $this->datePostArticle = $datetime;
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection {
@@ -166,20 +218,6 @@ class Article
         }
 
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPicture() {
-        return $this->picture;
-    }
-
-    /**
-     * @param mixed $picture
-     */
-    public function setPicture($picture): void {
-        $this->picture = $picture;
     }
 
 }

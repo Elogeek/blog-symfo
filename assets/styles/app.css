@@ -103,6 +103,9 @@ body {
 .form_connect .checkbox, .form_register .checkbox {
     margin-top: 1rem!important;
 }
+.form_register button {
+    margin-top: 3rem;
+}
 
 .form_connect button, .form_register button {
     margin-top: 1rem;

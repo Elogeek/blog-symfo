@@ -7,12 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- *
- */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -21,7 +19,16 @@ class Category
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Article::class, orphanRemoval: true)]
+    #[ORM\Column(type: 'boolean')]
+    private $active;
+
+    #[ORM\Column(type: 'datetime_immutable',nullable: true)]
+    private $updatedAt;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $createdAt;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Article::class)]
     private $articles;
 
     public function __construct() {
@@ -48,6 +55,57 @@ class Category
      */
     public function setName(string $name): self {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getActive(): ?bool {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     * @return $this
+     */
+    public function setActive(bool $active): self {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeImmutable|null
+     */
+    public function getUpdatedAt(): ?\DateTimeImmutable {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeImmutable|null
+     */
+    public function getCreatedAt(): ?\DateTimeImmutable {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -88,10 +146,10 @@ class Category
     }
 
     /**
-     * @return string
+     * Return name of the category
      */
-    public function __toString(): string {
-        return $this->getName();
+    public function __toString(){
+        return $this->name;
     }
 
 }

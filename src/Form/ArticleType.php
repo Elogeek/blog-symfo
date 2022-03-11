@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ArticleType extends AbstractType
 {
@@ -47,7 +48,15 @@ class ArticleType extends AbstractType
             // Add picture article
             ->add('picture', FileType::class, [
                 'label' => 'Uploadez votre image',
-                'mapped' => false
+                'mapped' => false,
+                'required' => false,
+                'constraints' => ([
+                    new Image([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => "L'image est trop lourde!",
+                        'detectCorrupted' => true
+                    ])
+                ])
             ])
             // Add category article
             ->add('category',EntityType::class, [
@@ -72,7 +81,15 @@ class ArticleType extends AbstractType
                 'choice_label' => function(User $user) {
                     return $user->getEmail();
                 },
-                'choices' => $options['users']
+                'group_by' => function(User $user){
+                    if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                        return 'Admins:';
+                    }
+                    elseif(in_array('ROLE_AUTHOR', $user->getRoles())) {
+                        return 'Auteurs:';
+                    }
+                    return 'Autres:';
+                }
             ])
             // Add comments article
             //->add('comments')
