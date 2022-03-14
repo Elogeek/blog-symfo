@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Update my account{% endtrans %}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+<main>
+    <h1>{% trans %}Update my account{% endtrans %}</h1>
+
+    <div class="container-fluid mt-4 w-50">
+        {{ form_start(form, { 'attr': {'class': 'flexColumn'}}) }}
+        {{ form_row(form.avatar) }}
+        {{ form_row(form.email) }}
+        <div class="d-none">
+            {{ form_row(form.password) }}
+            {{ form_row(form.roles) }}
+            {{ form_row(form.isVerified) }}
+        </div>
+        <div class="mb-3 flexCenter">
+            <input type="submit" value="{% trans %}Save{% endtrans %}" name="submit" class="btn-primary btn">
+        </div>
+        {{ form_widget(form._token) }}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token("user-update") }}">
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+</main>

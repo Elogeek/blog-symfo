@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -22,14 +23,14 @@ class UserCrudController extends AbstractCrudController
             EmailField::new('email', 'email'),
             // Gere l'image de l'avatar de l'user
             ImageField::new('avatar')
-                ->setBasePath('build/image/upload_users/avatars')
-                ->setUploadDir('public/build/image/upload_users/avatars')
+                ->setBasePath('build/uploads/avatar')
+                ->setUploadDir('publicbuild/uploads/avatar')
                 ->setSortable(false),
             // Display role user in the area admin
             ArrayField::new('roles')
             ->addHtmlContentsToBody(self::getEntityFqcn($this->getUser()->getRoles())),
             // Hash password
-            TextField::new('password')
+            TextField::new('password'),
         ];
     }
 }

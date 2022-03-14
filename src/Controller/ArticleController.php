@@ -89,16 +89,22 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            // upload image of the article
             $file = $form['picture']->getData();
             $ext = $file->guessExtension();
             if(!$ext) {
                 // If not ext alors use ext générique
                 $ext = ['png', 'jpeg', 'webp'];
             }
+            // Check save normal clicked
+            $published = $form->get('save')->isClicked();
+            $article->setIsPublished($published);
+
             // Déplacement du file and rename name unique
             $file->move($parameterBag->get("upload.directory"), uniqid(). "." .$ext);
             $entityManager->persist($article);
             $entityManager->flush();
+            $this->addFlash("success", "Article create with success !");
 
             return $this->redirectToRoute('app_category',["id" => $category->getId()]);
         }

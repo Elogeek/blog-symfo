@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{# Import menu #}
+ {% block menu %}
+     {{ parent() }}
+ {% endblock %}
+
+{% block title %} My account{% endblock %}
+
+{% block body %}
+
+    <div class="welcome">
+        {# If userd already connect #}
+        {% if app.user %}
+            <h1> welcome, {{ app.user.email }} !</h1>
+        {% else %}
+            <h1>Home</h1>
+        {% endif %}
+    </div>
+
+    <div class="left">
+        {{app.user.avatar }}
+    </div>
+    <div class="right">
+        {{ app.user.email }}
+    </div>
+    <div>
+        <a class="btn" href="{{ path("app_forgot_password_request")}}">
+            {% trans %}Reset my password{% endtrans %}
+        </a>
+    </div>
+    <div>
+        <a href={{ path('app_update_user', {id: app.user.id }) }}>
+            {% trans %}Update my account{% endtrans %}
+        </a>
+    </div>
+    <div>
+        <a href={{ path('app_delete_user',, {id: app.user.id }) }}>
+            {% trans %}Delete my account{% endtrans %}
+        </a>
+    </div>
+
+{% endblock %}

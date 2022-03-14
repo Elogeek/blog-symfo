@@ -5,11 +5,15 @@
      {{ parent() }}
  {% endblock %}
 
-{% block title %}Article{% endblock %}
+{% block title %} {{ article.title }}{% endblock %}
 
 {% block body %}
+    <div class="img_recette">
+        {{ article.picture }}
+    </div>
     <div>
         <h3>{{ article.title }}</h3>
+        <h4>{{ article.level }}</h4>
         <p>{{ article.content }}</p>
         <p>{{ article.category.name }}</p>
         <p>{{ app.user.email }}</p>

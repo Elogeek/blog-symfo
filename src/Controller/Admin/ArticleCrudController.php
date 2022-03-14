@@ -12,20 +12,22 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArticleCrudController extends AbstractCrudController
 {
     // shortcut path file upload img
-    public const PRODUCTS_BASE_PATH = 'build/image/upload_users/articles_img';
-    public const PRODUCTS_UPLOAD_DIR = 'public/build/image/upload_users/articles_img';
+    public const PRODUCTS_BASE_PATH = 'build/uploads/recipes';
+    public const PRODUCTS_UPLOAD_DIR = 'public/build/uploads/recipes';
 
     //shortcut copy product
     public const ACTION_DUPLICATE = 'duplicate';
@@ -61,6 +63,11 @@ class ArticleCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'titre'),
             SlugField::new('slug')->setTargetFieldName('title'),
+            ChoiceField::new('level')->setChoices([
+                'Facile' => "Facile",
+                'Moyen' => "Moyen",
+                'Difficile' => "Difficile",
+            ]),
             TextEditorField::new('content', 'description'),
 
             // Filtre les categories non actives ( hidden)
@@ -74,9 +81,12 @@ class ArticleCrudController extends AbstractCrudController
                 ->setUploadDir(self::PRODUCTS_UPLOAD_DIR)
                 ->setSortable(false),
 
+            TextField::new('preparationTime'),
+
             // Here date add article and date update article
             DateTimeField::new('updatedAt')->hideOnForm(),
             DateTimeField::new('createdAt')->hideOnForm(),
+
 
         ];
     }

@@ -24,4 +24,14 @@ class UserController extends AbstractController
             'users' => $users,
         ]);
     }
+
+    #[Route('/user/update/{id}', name:'app_update_user')]
+    public function update(): Response {
+
+    }
+
+    #[Route('/user/delete/{id}', name:'app_delete_user')]
+    public function delete(): Response {
+
+    }
 }

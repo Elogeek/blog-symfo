@@ -57,12 +57,31 @@ class RegistrationController extends AbstractController
             );
 
             $entityManager->persist($user);
+
+            if (!$form->get('avatar')->isEmpty()) {
+                //upload a picture
+                $filePicture = $form->get('avatar')->getData();
+                $filename = uniqid() . "." . $filePicture->guessExtension();
+
+                $filePicture->move(
+                    $this->getParameter('upload/avatar_directory'),
+                    $filename
+                );
+
+                $user->setAvatar($filename);
+            }
+            else {
+                $rand = rand(1, 6);
+                $filename = $rand . ".png";
+                $user->setAvatar($filename);
+            }
+
             $entityManager->flush();
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('confirm@my-app.fr', 'My App'))
+                    ->from(new Address('contact@ZenCook.fr', 'Zen Cook'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')

@@ -41,10 +41,10 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
-    #role_hierarchy:
-     #   ROLE_AUTHOR: ROLE_USER
-       # ROLE_MODERATOR: ROLE_USER
-      #  ROLE_ADMIN: [ROLE_AUTHOR, ROLE_MODERATOR]
+    role_hierarchy:
+        ROLE_AUTHOR: ROLE_USER
+        ROLE_MODERATOR: ROLE_USER
+        ROLE_ADMIN: [ROLE_AUTHOR, ROLE_MODERATOR]
 when@test:
     security:
             # By default, password hashers are resource intensive and take time. This is

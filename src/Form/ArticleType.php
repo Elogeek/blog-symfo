@@ -9,6 +9,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
@@ -27,11 +28,25 @@ class ArticleType extends AbstractType
         $builder
             // Add title article
             ->add('title', TextType::class, [
-                'label' => "Titre de l'article",
+                'label' => "Article title", "Titre de l'article",
+            ])
+            // Add slug of the article
+            ->add('slug', TextType::class, [
+                'label' => "Article slug", "Slug d'article",
+            ])
+            // Added recipe level
+            ->add('level', ChoiceType::class, [
+                'Facile' => "Facile",
+                'Moyen' => "Moyen",
+                'Difficile' => "Difficile",
+            ])
+            // Add PreparationTime
+            ->add('preparationTime', TextType::class,[
+                'label' => 'indicate the total time of the recipe', 'Indiquer le temps total de la recette'
             ])
             // Add content article
             ->add('content', TextareaType::class, [
-                'label' => "Entrez le contenu de l'article",
+                'label' => "Enter the content of the article","Entrez le contenu de l'article",
             ])
             // Add dateAdd article
             ->add('datePostArticle',DateType::class, [
@@ -61,8 +76,8 @@ class ArticleType extends AbstractType
             // Add category article
             ->add('category',EntityType::class, [
                 'class' => Category::class,
-                'label' => "Choisissez la bonne catégorie",
-                'placeholder' => "Choisissez une catégorie",
+                'label' => "Choose a category","Choisissez une catégorie",
+                'placeholder' => "Choose a category",
                 // Return a name category in the form
                 'choice_label' => function(Category $category) {
                     return $category->getName();
@@ -91,15 +106,17 @@ class ArticleType extends AbstractType
                     return 'Autres:';
                 }
             ])
-            // Add comments article
-            //->add('comments')
             // Refresh article
             ->add('reset', ResetType::class, [
                 'label' => "Recommencer"
             ])
             // Btn submit article
             ->add('save', SubmitType::class,[
-                'label' => "Sauvegarder l'article"
+                'label' => "Save"
+            ])
+            // Sava as draft
+            ->add('save_draft', SubmitType::class,[
+                'label' => "Save as draft"
             ])
         ;
     }

@@ -19,18 +19,24 @@
                         <li><a href="{{ path('home') }}"><img id="logo" src="{{ asset('build/image/copy/logo.png') }}" alt="Super logo"></a></li>
                     </div>
                     <div>
+                        <li><a href="{{ path('article_list') }}">All recipes</a></li>
+                    </div>
+                    <div>
+                        <li><a href="{{ path('article_add') }}">Add a recipe</a></li>
+                    </div>
+                    <div>
                         {# If userd already connect #}
                         {% if app.user %}
-                            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                            <li>
+                                <a href={{ path('user') }}>View my account</a>
+                            </li>
+                            </div>
+                            <div>
+                                <li><a href="{{ path('app_logout') }}">Logout</a></li>
+
                         {% else %}
-                            <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                            <li><a href="{{ path('app_login') }}">Connection</a></li>
                         {% endif %}
-                    </div>
-                    <div>
-                        <li><a href="{{ path('article_list') }}">Tous les articles</a></li>
-                    </div>
-                    <div>
-                       <li><a href="{{ path('article_add') }}">Ajouter un article</a></li>
                     </div>
                 {% endblock %}
             </ul>

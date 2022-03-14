@@ -51,7 +51,7 @@ body {
 }
 
 /** Design .welcome home **/
-.welcome {
+.welcome, #titleRecipes {
     display: flex;
     justify-content: center;
     margin-top: 5rem;
@@ -69,11 +69,16 @@ body {
 }
 
 .form_register form {
-    height: 31rem !important;
+    height: 33rem !important;
     text-align: center;
-    width: 27rem;
+    width: 28rem;
+    overflow: hidden;
 }
 
+ #registration_form_avatar {
+    color: white;
+}
+ 
 .form_connect, .form_register {
     display: flex;
     justify-content: center;

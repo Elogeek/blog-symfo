@@ -6,6 +6,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
@@ -23,6 +24,14 @@ class Article
 
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Level cannot be empty")]
+    private $level;
+
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank(message: "Preparation time cannot be empty")]
+    private $preparationTime;
 
     #[ORM\Column(type: 'text')]
     private $content;
@@ -49,6 +58,8 @@ class Article
     #[ORM\ManyToMany(targetEntity: Comment::class, mappedBy: 'article')]
     private $comments;
 
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $isPublished;
 
     public function __construct() {
         $this->comments = new ArrayCollection();
@@ -90,6 +101,37 @@ class Article
      */
     public function setSlug($slug): void {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLevel(): ?string {
+        return $this->level;
+    }
+
+    /**
+     * @param string $level
+     * @return $this
+     */
+    public function setLevel(string $level): self {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPreparationTime() {
+        return $this->preparationTime;
+    }
+
+    /**
+     * @param mixed $preparationTime
+     */
+    public function setPreparationTime($preparationTime): void {
+        $this->preparationTime = $preparationTime;
     }
 
     /**
@@ -226,5 +268,18 @@ class Article
         return $this->title;
     }
 
+    /**
+     * @return bool|null
+     */
+    public function getIsPublished(): ?bool {
+        return $this->isPublished;
+    }
+
+    /**
+     * @param bool|null $isPublished
+     */
+    public function setIsPublished(?bool $isPublished): void {
+        $this->isPublished = $isPublished;
+    }
 
 }
