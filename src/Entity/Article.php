@@ -219,5 +219,12 @@ class Article
 
         return $this;
     }
+    /**
+     * Return name of the category
+     */
+    public function __toString(){
+        return $this->title;
+    }
+
 
 }

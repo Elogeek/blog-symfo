@@ -9,7 +9,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Config\SecurityConfig;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -30,9 +29,7 @@ class UserCrudController extends AbstractCrudController
             ArrayField::new('roles')
             ->addHtmlContentsToBody(self::getEntityFqcn($this->getUser()->getRoles())),
             // Hash password
-            TextField::new('password')->setCustomOption(hash('md5', self::getEntityFqcn($this->getUser()->getPassword('password_encoding'))), [])
+            TextField::new('password')
         ];
     }
-
-
 }

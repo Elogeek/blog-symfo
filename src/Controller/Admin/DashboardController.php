@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -53,11 +54,17 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Create category', 'fas fa-plus',Category::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Show categories', 'fas fa-eye',Category::class)
         ]);
-        // Section category
+        // Section users
         yield MenuItem::section('User');
         yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Create user', 'fas fa-user-plus',User::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Show users', 'fas fa-eye',User::class)
         ]);
+        // Section comments
+        yield MenuItem::section('Comments');
+        yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Create comment', 'fas fa-comment',Comment::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Show comments', 'fas fa-eye',Comment::class)
+        ]);
     }
+
 }

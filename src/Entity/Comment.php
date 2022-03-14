@@ -19,7 +19,10 @@ class Comment
     private $id;
 
     #[ORM\Column(type: 'text')]
-    private $content;
+    private $comment;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $date;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
     private $author;
@@ -38,22 +41,31 @@ class Comment
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getContent(): ?string {
-        return $this->content;
+    public function getComment(): ?string
+    {
+        return $this->comment;
     }
 
-    /**
-     * @param string $content
-     * @return $this
-     */
-    public function setContent(string $content): self {
-        $this->content = $content;
+    public function setComment(string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
+
+    public function getDate(): ?\DateTime
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTime $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+
 
     /**
      * @return User|null
