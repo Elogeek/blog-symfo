@@ -13,7 +13,7 @@
         <p>{{ article.content }}</p>
         <p>{{ article.category.name }}</p>
         <p>{{ app.user.email }}</p>
-        <p>{{ article.datePostArticle|date("m/d/Y") }}</p>
+        <p>{{ article.createdAt|date("m/d/Y") }}</p>
 
         <div>
             {% if is_granted('ROLE_USER') %}

@@ -19,7 +19,7 @@
 
     {% for category in categories %}
         <div>
-            <a href="{{ path('article_single', { 'id': category.id}) }}">{{ category.name }}</a>
+            <a href="{{ path('article_index', { 'id': category.id}) }}">{{ category.name }}</a>
         </div>
     {% endfor %}
     {% if articles|length > 0  %}
@@ -29,7 +29,7 @@
                 <p>{{ article.category.name }}</p>
                 <p>{{ article.author.email }}</p>
                 <p>{{ article.datetime|date("m/d/Y") }}</p>
-                <p><a href="{{ path('article_single', { 'id': article.id}) }}">Lire l'article</a></p>
+                <p><a href="{{ path('article_index', { 'id': article.id}) }}">Lire l'article</a></p>
             </div>
         {% endfor %}
     {% endif %}

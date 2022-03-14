@@ -21,7 +21,7 @@
             <div>
                 <h3>{{ article.title }}</h3>
                 <p>{{ article.author.email }}</p>
-                <p>{{ article.datePostArticle|date("m/d/Y") }}</p>
+                <p>{{ article.createdAt|date("m/d/Y") }}</p>
                 <p><a href="{{ path('article_list', { 'id': article.id}) }}">Lire l'article</a></p>
             </div>
         {% endfor %}

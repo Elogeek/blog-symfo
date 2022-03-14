@@ -4,12 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-
+use Symfony\Config\SecurityConfig;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -21,18 +21,16 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             EmailField::new('email', 'email'),
-            // Prend l'image avatar en url mais je préfère l'ImageField
-            //AvatarField::new('avatar')->setIsGravatarEmail(),
-            // Gere l'image de l'article
+            // Gere l'image de l'avatar de l'user
             ImageField::new('avatar')
-                ->setBasePath('build/upload/images/users/avatars')
-                ->setUploadDir('public/build/upload/images/users/avatars')
+                ->setBasePath('build/image/upload_users/avatars')
+                ->setUploadDir('public/build/image/upload_users/avatars')
                 ->setSortable(false),
             // Display role user in the area admin
-           // NumberField::new('roles')
-            //->setNumberFormat(self::getEntityFqcn()),
-
-            TextField::new('password')->hideOnForm(),
+            ArrayField::new('roles')
+            ->addHtmlContentsToBody(self::getEntityFqcn($this->getUser()->getRoles())),
+            // Hash password
+            TextField::new('password')->setCustomOption(hash('md5', self::getEntityFqcn($this->getUser()->getPassword('password_encoding'))), [])
         ];
     }
 

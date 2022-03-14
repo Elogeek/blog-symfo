@@ -77,7 +77,7 @@ class ArticleController extends AbstractController
         // Récupération de l'user connecté
         $user = $this->getUser();
 
-        $article->setCategory($category)->setDatePostArticle($date)->setAuthor($user);
+        $article->setCategory($category)->setCreatedAt($date)->setAuthor($user);
         $form = $this->createForm(ArticleType::class, $article, [
             // If not author => null
             'default_author' => $entityManager->getRepository(User::class)->find(3),

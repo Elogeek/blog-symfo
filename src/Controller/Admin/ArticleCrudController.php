@@ -24,8 +24,8 @@ use Symfony\Component\HttpFoundation\Response;
 class ArticleCrudController extends AbstractCrudController
 {
     // shortcut path file upload img
-    public const PRODUCTS_BASE_PATH = 'build/upload/images/articles';
-    public const PRODUCTS_UPLOAD_DIR = 'public/build/upload/images/articles';
+    public const PRODUCTS_BASE_PATH = 'build/image/upload_users/articles_img';
+    public const PRODUCTS_UPLOAD_DIR = 'public/build/image/upload_users/articles_img';
 
     //shortcut copy product
     public const ACTION_DUPLICATE = 'duplicate';
