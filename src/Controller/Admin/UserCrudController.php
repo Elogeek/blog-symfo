@@ -23,8 +23,8 @@ class UserCrudController extends AbstractCrudController
             EmailField::new('email', 'email'),
             // Gere l'image de l'avatar de l'user
             ImageField::new('avatar')
-                ->setBasePath('build/uploads/avatar')
-                ->setUploadDir('publicbuild/uploads/avatar')
+                ->setBasePath('build/image/avatar')
+                ->setUploadDir('public/build/image/avatar')
                 ->setSortable(false),
             // Display role user in the area admin
             ArrayField::new('roles')

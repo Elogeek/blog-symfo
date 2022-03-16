@@ -9,8 +9,10 @@ use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,7 +103,7 @@ class ArticleController extends AbstractController
             $article->setIsPublished($published);
 
             // Déplacement du file and rename name unique
-            $file->move($parameterBag->get("upload.directory"), uniqid(). "." .$ext);
+            $file->move($parameterBag->get("/image/uploads/recipes"), uniqid(). "." .$ext);
             $entityManager->persist($article);
             $entityManager->flush();
             $this->addFlash("success", "Article create with success !");
@@ -111,9 +113,19 @@ class ArticleController extends AbstractController
 
         return $this->render('article/add.html.twig', [
                 'form' => $form->createView(),
+                'categories' => [],
+                'users' => [],
+                'default_author' => null,
             ]
         );
     }
 
+    #[Route('/article/delete/{id}', name:'app_delete_article')]
+    #[IsGranted('ROLE_AUTHOR')]
+    public function delete(Article $article, EntityManagerInterface $entityManager): Response {
+        $entityManager->remove($article);
+        $entityManager->flush();
+        return $this->redirectToRoute("home");
+    }
 
 }

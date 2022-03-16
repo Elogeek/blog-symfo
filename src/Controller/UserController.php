@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,12 +27,21 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/update/{id}', name:'app_update_user')]
-    public function update(): Response {
+    public function update(User $user, EntityManagerInterface $entityManager): Response {
+        $user
+            ->setEmail('')
+            ->setAvatar('')
+        ;
 
+        $entityManager->flush();
+        return $this->redirectToRoute('home');
     }
 
     #[Route('/user/delete/{id}', name:'app_delete_user')]
-    public function delete(): Response {
-
+    public function delete(User $user, EntityManagerInterface $entityManager): Response {
+     $entityManager->remove($user);
+     $entityManager->flush();
+     return $this->redirectToRoute("home");
     }
+
 }

@@ -11,33 +11,31 @@ class LocaleSubscriber implements EventSubscriberInterface
     // Language by default
     private $defaultLocale;
 
-    public function __construct($defaultLocale = 'en')
-    {
+    public function __construct($defaultLocale = 'en') {
         $this->defaultLocale = $defaultLocale;
     }
 
-    public static function getSubscribedEvents()
-    {
+    public static function getSubscribedEvents() {
+        // Set a high priority
         return [
-            // We must set a high priority
             KernelEvents::REQUEST => [['onKernelRequest', 20]],
         ];
     }
 
-    public function onKernelRequest(RequestEvent $event)
-    {
+    public function onKernelRequest(RequestEvent $event) {
         $request = $event->getRequest();
         if (!$request->hasPreviousSession()) {
             return;
         }
-
-        // We check if the language is passed as a parameter of the URL
+        // Check if the language is passed as a parameter of the URL
         if ($locale = $request->query->get('_locale')) {
             $request->setLocale($locale);
-        } else {
-            // Otherwise we use that of the session
+        }
+        // Otherwise we use that of the session
+        else {
             $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
         }
+
     }
 
 

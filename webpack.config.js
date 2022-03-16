@@ -13,7 +13,7 @@ Encore
     .copyFiles({
         from: './assets/image',
         // main directory name
-        to: 'image/copy/[path][name].[ext]',
+        to: 'image/uploads/[path][name].[ext]',
         // to import the file types I want and need
         pattern: /\.(png|jpg|jpeg|webp)$/
     })

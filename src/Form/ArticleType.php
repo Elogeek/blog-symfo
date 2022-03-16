@@ -100,7 +100,7 @@ class ArticleType extends AbstractType
                     if (in_array('ROLE_ADMIN', $user->getRoles())) {
                         return 'Admins:';
                     }
-                    elseif(in_array('ROLE_AUTHOR', $user->getRoles())) {
+                    if (in_array('ROLE_AUTHOR', $user->getRoles())) {
                         return 'Auteurs:';
                     }
                     return 'Autres:';

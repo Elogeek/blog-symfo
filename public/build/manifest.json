@@ -1,0 +1,19 @@
+{
+  "build/app.css": "/build/app.css",
+  "build/app.js": "/build/app.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/image/logo.png": "/build/image/logo.png",
+  "build/image/uploads/avatar/me.png": "/build/image/uploads/avatar/me.png",
+  "build/image/uploads/recipes/quiche.jpg": "/build/image/uploads/recipes/quiche.jpg",
+  "build/image/uploads/recipes/nouilles.webp": "/build/image/uploads/recipes/nouilles.webp",
+  "build/image/uploads/avatar_default/9.jpg": "/build/image/uploads/avatar_default/9.jpg",
+  "build/image/uploads/avatar_default/1.png": "/build/image/uploads/avatar_default/1.png",
+  "build/image/uploads/avatar_default/7.webp": "/build/image/uploads/avatar_default/7.webp",
+  "build/image/uploads/avatar_default/2.webp": "/build/image/uploads/avatar_default/2.webp",
+  "build/image/uploads/avatar_default/4.webp": "/build/image/uploads/avatar_default/4.webp",
+  "build/image/uploads/avatar_default/6.webp": "/build/image/uploads/avatar_default/6.webp",
+  "build/image/uploads/avatar_default/8.webp": "/build/image/uploads/avatar_default/8.webp",
+  "build/image/uploads/avatar_default/3.webp": "/build/image/uploads/avatar_default/3.webp",
+  "build/image/uploads/avatar_default/5.webp": "/build/image/uploads/avatar_default/5.webp",
+  "build/image/uploads/avatar_default/10.webp": "/build/image/uploads/avatar_default/10.webp"
+}

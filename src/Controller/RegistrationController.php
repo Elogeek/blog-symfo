@@ -64,15 +64,15 @@ class RegistrationController extends AbstractController
                 $filename = uniqid() . "." . $filePicture->guessExtension();
 
                 $filePicture->move(
-                    $this->getParameter('upload/avatar_directory'),
+                    $this->getParameter('avatar_directory'),
                     $filename
                 );
 
                 $user->setAvatar($filename);
             }
             else {
-                $rand = rand(1, 6);
-                $filename = $rand . ".png";
+                $rand = rand(1, 10);
+                $filename = $rand . ".png|webp";
                 $user->setAvatar($filename);
             }
 
